@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Driver.h"
 #include <thread>
 using namespace std;
 
@@ -6,37 +7,37 @@ class Car
 {
     private:
         float weight;
-        char driveTrainType;
-        float axleRatio;
+        
         bool isOn;
         Engine* e;
-        Battery* ba;
+        Driver* d;
         friend class Engine;
         
     public:
         Car() 
         {
-            axleRatio = 3.73;
+            weight = 1524;
             e = new Engine;
-            ba = new Battery;
+            d = new Driver;
         }
 
         void startCar()
         {
-            e->start(ba);
-            thread engine(&Engine::runEngine, e);
-            engine.join();
+            e->start();
             isOn = true;
+            thread engine(&Engine::runEngine, e, d->getHandling());
+            thread stop(&Car::stopCar, this);
+            stop.join();
+            engine.join();
         }
 
         void stopCar()
         {
-            while(isOn)
+            if(isOn)
             {
-                if(e->getTorque() > 1.1)
-                {
-                    e->stopEngine();
-                }
+                cin.get();
+                e->stopEngine();
+                isOn = false;
             }
         }
         void accelerate();
