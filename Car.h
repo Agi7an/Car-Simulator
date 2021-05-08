@@ -1,46 +1,28 @@
+/*
+File: Car.h
+Authors: Agilan and Arjuna
+Car Header File
+*/
+
 #include "Engine.h"
 #include "Driver.h"
-#include <thread>
 using namespace std;
 
 class Car
 {
     private:
-        float weight;
-        
-        bool isOn;
-        Engine* e;
-        Driver* d;
-        friend class Engine;
+        bool isOn;          //True if  the car is on, otherwise false
+        float totalDuration;
+        Engine* e;          //The car HAS A engine(Composition)
+        Driver* d;          //The car HAS A driver(Association)
         
     public:
-        Car() 
-        {
-            weight = 1524;
-            e = new Engine;
-            d = new Driver;
-        }
-
-        void startCar()
-        {
-            e->start();
-            isOn = true;
-            thread engine(&Engine::runEngine, e, d->getHandling());
-            thread stop(&Car::stopCar, this);
-            stop.join();
-            engine.join();
-        }
-
-        void stopCar()
-        {
-            if(isOn)
-            {
-                cin.get();
-                e->stopEngine();
-                isOn = false;
-            }
-        }
-        void accelerate();
-        void decelerate();
-        void reverse();
+        Car();
+        void startCar(float);   //Starts the car and makes 'isOn' true
+        void stopCar();         //Stops the car and makes 'isOn' false
+        void calcDuration();    //Adds the duration of each run
+        float getUsage();       //Returns how much the car has been used
+        float timeLeft();       //Returns the lifetime of the car left
+        float getDuration();    //Returns the duration of the simulation
+        bool functional();      //Checks if the car is still functional
 };

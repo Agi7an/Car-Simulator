@@ -1,3 +1,9 @@
+/*
+File: Driver.h
+Authors: Agilan and Arjuna
+Driver Header File
+*/
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -5,17 +11,10 @@ using namespace std;
 class Driver
 {
     private:
-        string name;
-        float handling;
+        string name;        //Driver's name
+        float handling;     //Driver's handling rating/experience
     public:
-        Driver()
-        {
-            name = "ANONYMOUS";
-            handling = 0.75;
-        }
-
-        float getHandling()
-        {
-            return handling;
-        }
+        Driver();
+        Driver(string, float);
+        float getHandling();        //Returns the driver's handling
 };

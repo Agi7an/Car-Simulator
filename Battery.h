@@ -1,20 +1,16 @@
+/*
+File: Battery.h
+Authors: Agilan and Arjuna
+Battery Header File
+*/
+
+
 class Battery
 {
     private:
-        float batteryLevel;
-        friend class Engine;
+        float batteryLevel;     //Indicates the current battery level
     public:
         Battery();
-        float calcBattery(float);
+        void calcBattery();     //To calculate the battery drained and battery level left
+        float getBattery();     //Getter to access the battery level in the battery
 };
-
-Battery::Battery()
-{
-    batteryLevel = 1.0;
-}
-
-float Battery::calcBattery(float usage)
-{
-    batteryLevel = 1 - usage;
-    return batteryLevel;
-}
